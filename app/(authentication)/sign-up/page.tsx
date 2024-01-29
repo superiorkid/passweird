@@ -11,12 +11,14 @@ const SignUpPage = () => {
         sign in
       </Link>
 
-      <div className="max-w-lg space-y-3.5">
+      <div className="max-w-lg space-y-5">
         <div className="text-center space-y-1.5">
-          <h1 className="text-2xl font-bold">Next/Pass</h1>
+          <h1 className="text-3xl font-light">
+            Next/<span className="font-bold">Passw*ird</span>
+          </h1>
           <p className="text-sm text-zinc-500 [text-wrap:balance]">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere
-            itaque architecto aspernatur, error aliquam nemo corporis.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
+            architecto veniam in quisquam. Cum, natus molestias?
           </p>
         </div>
         <div className="border p-5 rounded-xl">sign up form</div>
