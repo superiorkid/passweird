@@ -1,5 +1,5 @@
+import SignUpForm from "@/components/forms/signup-form";
 import Link from "next/link";
-import React from "react";
 
 const SignUpPage = () => {
   return (
@@ -11,17 +11,19 @@ const SignUpPage = () => {
         sign in
       </Link>
 
-      <div className="max-w-lg space-y-5">
+      <div className="space-y-5 min-w-[498px]">
         <div className="text-center space-y-1.5">
           <h1 className="text-3xl font-light">
             Next/<span className="font-bold">Passw*ird</span>
           </h1>
           <p className="text-sm text-zinc-500 [text-wrap:balance]">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi
-            architecto veniam in quisquam. Cum, natus molestias?
+            <span className="font-bold">Register</span> to continue using this
+            app
           </p>
         </div>
-        <div className="border p-5 rounded-xl">sign up form</div>
+        <div className="p-5 space-y-3">
+          <SignUpForm />
+        </div>
       </div>
     </div>
   );
