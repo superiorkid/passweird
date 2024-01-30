@@ -25,7 +25,9 @@ const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         if (!credentials?.emailOrUsername || !credentials.password) {
-          throw new Error("Invalid Creadentials");
+          throw new Error(
+            "Invalid credentials: Email/username and password are required."
+          );
         }
 
         const validation = loginSchema.safeParse({
@@ -34,7 +36,9 @@ const authOptions: NextAuthOptions = {
         });
 
         if (!validation.success) {
-          throw new Error(validation.error.issues.at(0)?.message);
+          throw new Error(
+            `Invalid credentials: ${validation.error.issues.at(0)?.message}`
+          );
         }
 
         const user = await prisma.user.findFirst({
@@ -50,14 +54,16 @@ const authOptions: NextAuthOptions = {
           },
         });
 
-        if (!user || !user.password) throw new Error("Invalid Credentials");
+        if (!user || !user.password)
+          throw new Error("Invalid credentials: User not found.");
 
         const passwordMatches = await bcrypt.compare(
           credentials.password,
           user.password
         );
 
-        if (!passwordMatches) throw new Error("Invalid Credentials");
+        if (!passwordMatches)
+          throw new Error("Invalid credentials: Incorrect password.");
 
         return user;
       },

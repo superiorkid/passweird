@@ -38,3 +38,7 @@ export const registerAction = async (values: TRegister) => {
     throw new Error("Something broke. Failed to register user");
   }
 };
+
+export const getSession = () => {};
+
+export const getCurrentUser = () => {};

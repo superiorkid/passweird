@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useTransition } from "react";
+import { registerAction } from "@/actions/auth-action";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,13 +12,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { TRegister, registerSchema } from "@/lib/validators/auth-schema";
-import { Checkbox } from "../ui/checkbox";
-import { registerAction } from "@/actions/auth-action";
-import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { Checkbox } from "../ui/checkbox";
 
 const SignUpForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -38,8 +38,9 @@ const SignUpForm = () => {
     startTransition(() => {
       registerAction(values)
         .then((callback) => {
-          toast.success(callback.message);
-          router.refresh();
+          toast.success(`${callback.message}. now you can login`);
+          form.reset();
+          router.push("/sign-in");
         })
         .catch((error) => {
           toast.error(error.message);
@@ -79,7 +80,7 @@ const SignUpForm = () => {
                 <Input placeholder="Enter your email" {...field} />
               </FormControl>
               <FormDescription>
-                We'll never share your email with anyone else.
+                We&apos;ll never share your email with anyone else.
               </FormDescription>
               <FormMessage />
             </FormItem>

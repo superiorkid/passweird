@@ -17,7 +17,7 @@ const SignUpPage = () => {
         sign in
       </Link>
 
-      <div className="space-y-5 min-w-[498px]">
+      <div className="space-y-5 min-w-[458px]">
         <div className="text-center space-y-1.5">
           <h1 className="text-3xl font-light">
             Next/<span className="font-bold">Passw*ird</span>

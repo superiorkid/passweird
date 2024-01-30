@@ -2,12 +2,14 @@
 
 import { TLogin, loginSchema } from "@/lib/validators/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,8 +26,24 @@ const SignInForm = () => {
     },
   });
 
-  const onSubmit = (values: TLogin) => {
-    console.log(values);
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (values: TLogin) => {
+      await signIn("credentials", { redirect: false, ...values }).then(
+        (callback) => {
+          if (callback?.error) {
+            toast.error(callback.error);
+          }
+
+          if (callback?.ok && !callback.error) {
+            toast.success("success");
+          }
+        }
+      );
+    },
+  });
+
+  const onSubmit = async (values: TLogin) => {
+    await mutateAsync(values);
   };
 
   return (
@@ -38,11 +56,12 @@ const SignInForm = () => {
             <FormItem>
               <FormLabel>Email or Username</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email/username" {...field} />
+                <Input
+                  placeholder="Enter your email/username"
+                  disabled={isPending}
+                  {...field}
+                />
               </FormControl>
-              <FormDescription>
-                Choose a unique username that others will see.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -56,6 +75,7 @@ const SignInForm = () => {
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
+                  disabled={isPending}
                   type="password"
                   placeholder="Enter your password"
                   {...field}
@@ -66,8 +86,8 @@ const SignInForm = () => {
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Log In
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? "Log In..." : "Log In"}
         </Button>
       </form>
     </Form>

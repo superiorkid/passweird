@@ -1,10 +1,9 @@
 import SignInForm from "@/components/forms/signin-form";
 import { type Metadata } from "next";
 import Link from "next/link";
-import React from "react";
 
 export const metadata: Metadata = {
-  title: "Sign Ip | Passweird",
+  title: "Sign In | Passweird",
   description: "Password manager. built using nextjs",
 };
 
@@ -18,7 +17,7 @@ const SignInPage = () => {
         register
       </Link>
 
-      <div className="min-w-[498px] space-y-5">
+      <div className="min-w-[458px] space-y-5">
         <div className="text-center space-y-1.5">
           <h1 className="text-3xl font-light">
             Next/<span className="font-bold">Passw*ird</span>
