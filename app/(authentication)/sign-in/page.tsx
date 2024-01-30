@@ -1,6 +1,12 @@
 import SignInForm from "@/components/forms/signin-form";
+import { type Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Sign Ip | Passweird",
+  description: "Password manager. built using nextjs",
+};
 
 const SignInPage = () => {
   return (

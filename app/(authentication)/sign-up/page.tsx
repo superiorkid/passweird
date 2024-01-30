@@ -1,5 +1,11 @@
 import SignUpForm from "@/components/forms/signup-form";
+import { type Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Sign Up | Passweird",
+  description: "Password manager. built using nextjs",
+};
 
 const SignUpPage = () => {
   return (

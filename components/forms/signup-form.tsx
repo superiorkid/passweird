@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,8 +16,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TRegister, registerSchema } from "@/lib/validators/auth-schema";
 import { Checkbox } from "../ui/checkbox";
+import { registerAction } from "@/actions/auth-action";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
+
   const form = useForm<TRegister>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -29,7 +35,16 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (values: TRegister) => {
-    console.log(values);
+    startTransition(() => {
+      registerAction(values)
+        .then((callback) => {
+          toast.success(callback.message);
+          router.refresh();
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    });
   };
 
   return (
@@ -38,6 +53,7 @@ const SignUpForm = () => {
         <FormField
           control={form.control}
           name="username"
+          disabled={isPending}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Username</FormLabel>
@@ -55,6 +71,7 @@ const SignUpForm = () => {
         <FormField
           control={form.control}
           name="email"
+          disabled={isPending}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
@@ -72,6 +89,7 @@ const SignUpForm = () => {
         <FormField
           control={form.control}
           name="password"
+          disabled={isPending}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
@@ -94,6 +112,7 @@ const SignUpForm = () => {
             <FormItem className="flex flex-row items-start space-x-3 space-y-0">
               <FormControl>
                 <Checkbox
+                  disabled={isPending}
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
@@ -108,8 +127,8 @@ const SignUpForm = () => {
           )}
         />
 
-        <Button type="submit" className="w-full">
-          Log In
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? "Register..." : "Register"}
         </Button>
       </form>
     </Form>
