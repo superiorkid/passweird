@@ -40,5 +40,3 @@ export const registerAction = async (values: TRegister) => {
 };
 
 export const getSession = () => {};
-
-export const getCurrentUser = () => {};

@@ -4,6 +4,7 @@ import { TLogin, loginSchema } from "@/lib/validators/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -18,6 +19,7 @@ import {
 import { Input } from "../ui/input";
 
 const SignInForm = () => {
+  const router = useRouter();
   const form = useForm<TLogin>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -35,7 +37,8 @@ const SignInForm = () => {
           }
 
           if (callback?.ok && !callback.error) {
-            toast.success("success");
+            toast.success("Logged in");
+            router.push("/dashboard");
           }
         }
       );

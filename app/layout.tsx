@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/providers/react-query-provider";
 
 export const metadata: Metadata = {
-  title: "Passweird",
+  title: "Manage your password easily using Passweird",
   description: "Password manager. built using nextjs",
 };
 
