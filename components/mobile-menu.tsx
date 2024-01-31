@@ -35,23 +35,32 @@ const MobileMenu = ({ currentUser }: MobileMenuProps) => {
     <div className="lg:hidden">
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="ghost" size="icon">
-            <IconParkHamburgerButton className="h-6 w-6" />
+          {/* TODO: Dark mode not effected */}
+          <Button variant="ghost" size="icon" className="">
+            <IconParkHamburgerButton className="h-6 w-6 dark:fill-white" />
           </Button>
         </SheetTrigger>
-        <SheetContent className="flex min-h-screen w-[100dvw] items-center justify-center md:w-[540px]">
+        <SheetContent className="flex min-h-screen w-[100dvw] items-center justify-center dark:bg-gray-900 md:w-[540px]">
           <NavigationMenu>
             <NavigationMenuList className="flex flex-col">
               <NavigationMenuItem>
                 <Link href="/" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink
+                    className={navigationMenuTriggerStyle({
+                      className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+                    })}
+                  >
                     Home
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <Link href="#about" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink
+                    className={navigationMenuTriggerStyle({
+                      className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+                    })}
+                  >
                     About
                   </NavigationMenuLink>
                 </Link>
@@ -61,7 +70,9 @@ const MobileMenu = ({ currentUser }: MobileMenuProps) => {
                   <NavigationMenuItem>
                     <Link href="/dashboard" legacyBehavior passHref>
                       <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
+                        className={navigationMenuTriggerStyle({
+                          className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+                        })}
                       >
                         Dashboard
                       </NavigationMenuLink>
@@ -69,7 +80,11 @@ const MobileMenu = ({ currentUser }: MobileMenuProps) => {
                   </NavigationMenuItem>
                   <NavigationMenuItem>
                     <Button
-                      className={cn(navigationMenuTriggerStyle())}
+                      className={cn(
+                        navigationMenuTriggerStyle({
+                          className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+                        }),
+                      )}
                       variant="ghost"
                     >
                       Log Out
@@ -81,7 +96,9 @@ const MobileMenu = ({ currentUser }: MobileMenuProps) => {
                   <NavigationMenuItem>
                     <Link href="/sign-in" legacyBehavior passHref>
                       <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
+                        className={navigationMenuTriggerStyle({
+                          className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+                        })}
                       >
                         Log in
                       </NavigationMenuLink>
@@ -90,7 +107,9 @@ const MobileMenu = ({ currentUser }: MobileMenuProps) => {
                   <NavigationMenuItem>
                     <Link href="/sign-up" legacyBehavior passHref>
                       <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
+                        className={navigationMenuTriggerStyle({
+                          className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+                        })}
                       >
                         Create Account
                       </NavigationMenuLink>

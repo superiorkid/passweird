@@ -15,14 +15,22 @@ const Menu = () => {
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink
+              className={navigationMenuTriggerStyle({
+                className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+              })}
+            >
               Home
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link href="#about" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink
+              className={navigationMenuTriggerStyle({
+                className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+              })}
+            >
               About
             </NavigationMenuLink>
           </Link>

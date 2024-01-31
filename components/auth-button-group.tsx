@@ -49,7 +49,11 @@ const AuthButtonGroup = ({ currentUser }: AuthButtonGroupProps) => {
             <>
               <NavigationMenuItem>
                 <Link href="/dashboard" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink
+                    className={navigationMenuTriggerStyle({
+                      className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+                    })}
+                  >
                     Dashboard
                   </NavigationMenuLink>
                 </Link>
@@ -57,7 +61,12 @@ const AuthButtonGroup = ({ currentUser }: AuthButtonGroupProps) => {
 
               <NavigationMenuItem>
                 <Button
-                  className={cn(navigationMenuTriggerStyle(), "text-rose-500")}
+                  className={cn(
+                    navigationMenuTriggerStyle({
+                      className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+                    }),
+                    "text-rose-500 dark:hover:text-rose-300",
+                  )}
                   variant="ghost"
                   disabled={isPending}
                   onClick={handleLogOut}
@@ -70,7 +79,11 @@ const AuthButtonGroup = ({ currentUser }: AuthButtonGroupProps) => {
             <>
               <NavigationMenuItem>
                 <Link href="/sign-in" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <NavigationMenuLink
+                    className={navigationMenuTriggerStyle({
+                      className: "dark:bg-gray-900 dark:hover:bg-gray-800",
+                    })}
+                  >
                     Log in
                   </NavigationMenuLink>
                 </Link>
@@ -84,7 +97,7 @@ const AuthButtonGroup = ({ currentUser }: AuthButtonGroupProps) => {
                       buttonVariants({
                         variant: "default",
                         className:
-                          "transition-all duration-300 hover:text-zinc-200",
+                          "transition-all duration-300 hover:text-zinc-200 dark:hover:text-zinc-800",
                       }),
                     )}
                   >

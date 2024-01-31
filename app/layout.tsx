@@ -3,6 +3,9 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { Toaster } from "@/components/ui/sonner";
 import ReactQueryProvider from "@/providers/react-query-provider";
+import ThemeProvider from "@/providers/theme-provider";
+import { cn } from "@/lib/utils";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Manage your password easily using Passweird",
@@ -16,11 +19,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={GeistSans.className}>
-        <ReactQueryProvider>
-          {children}
-          <Toaster position="bottom-right" richColors theme="system" expand />
-        </ReactQueryProvider>
+      <body className={cn(GeistSans.className, "dark:bg-zinc-900")}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ReactQueryProvider>
+            {children}
+            <Toaster position="bottom-right" richColors theme="system" expand />
+          </ReactQueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
