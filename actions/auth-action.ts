@@ -40,7 +40,3 @@ export const registerAction = async (values: TRegister) => {
     throw new Error("Something broke. Failed to register user");
   }
 };
-
-export const getSession = async () => {
-  return await getServerSession(authOptions);
-};

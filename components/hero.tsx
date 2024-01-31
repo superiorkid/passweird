@@ -10,7 +10,7 @@ const Hero = () => {
       <div className="space-y-3 text-center lg:flex-1 lg:text-left">
         <h1 className="text-3xl font-bold lg:text-5xl">Passweird</h1>
 
-        <p className="prose prose-sm leading-7 dark:prose-invert lg:prose-lg [&:not(:first-child)]:mt-6">
+        <p className="prose prose-sm leading-7 [text-wrap:balance] dark:prose-invert lg:prose-lg [&:not(:first-child)]:mt-6">
           Passweird, where security meets a touch of humor! Tired of mundane
           password managers? Embrace a quirky and fun approach to safeguarding
           your digital life. Passweird ensures top-notch security with a playful

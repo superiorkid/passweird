@@ -26,7 +26,7 @@ const authOptions: NextAuthOptions = {
       async authorize(credentials, req) {
         if (!credentials?.emailOrUsername || !credentials.password) {
           throw new Error(
-            "Invalid credentials: Email/username and password are required."
+            "Invalid credentials: Email/username and password are required.",
           );
         }
 
@@ -37,7 +37,7 @@ const authOptions: NextAuthOptions = {
 
         if (!validation.success) {
           throw new Error(
-            `Invalid credentials: ${validation.error.issues.at(0)?.message}`
+            `Invalid credentials: ${validation.error.issues.at(0)?.message}`,
           );
         }
 
@@ -59,7 +59,7 @@ const authOptions: NextAuthOptions = {
 
         const passwordMatches = await bcrypt.compare(
           credentials.password,
-          user.password
+          user.password,
         );
 
         if (!passwordMatches)

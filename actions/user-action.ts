@@ -1,8 +1,8 @@
 "use server";
 
 import { Prisma } from "@prisma/client";
-import { getSession } from "./auth-action";
 import prisma from "@/prisma/db";
+import { getSession } from "./get-session";
 
 export const getCurrentUser = async () => {
   try {
