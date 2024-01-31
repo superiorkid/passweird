@@ -10,15 +10,42 @@ import {
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Button, buttonVariants } from "./ui/button";
+import { User } from "@prisma/client";
+import { signOut } from "next-auth/react";
+import { useTransition } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 
-const AuthButtonGroup = () => {
-  const auth = true;
+interface AuthButtonGroupProps {
+  currentUser: User | null;
+}
+
+const AuthButtonGroup = ({ currentUser }: AuthButtonGroupProps) => {
+  const router = useRouter();
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async () => {
+      await signOut({ redirect: false });
+      router.refresh();
+    },
+  });
+
+  const handleLogOut = async () => {
+    await mutateAsync()
+      .then((callback) => {
+        toast.success("Logged Out");
+      })
+      .catch((error) => {
+        toast.error("Log out Failed");
+      });
+  };
 
   return (
     <div className="hidden lg:block">
       <NavigationMenu>
         <NavigationMenuList>
-          {auth ? (
+          {currentUser ? (
             <>
               <NavigationMenuItem>
                 <Link href="/dashboard" legacyBehavior passHref>
@@ -32,8 +59,10 @@ const AuthButtonGroup = () => {
                 <Button
                   className={cn(navigationMenuTriggerStyle(), "text-rose-500")}
                   variant="ghost"
+                  disabled={isPending}
+                  onClick={handleLogOut}
                 >
-                  Log out
+                  {isPending ? "Logged out..." : "Log out"}
                 </Button>
               </NavigationMenuItem>
             </>

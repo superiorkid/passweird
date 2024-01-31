@@ -1,9 +1,11 @@
 "use server";
 
+import authOptions from "@/lib/auth-options";
 import { TRegister, registerSchema } from "@/lib/validators/auth-schema";
 import prisma from "@/prisma/db";
 import { Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { getServerSession } from "next-auth";
 
 export const registerAction = async (values: TRegister) => {
   const validation = registerSchema.safeParse(values);
@@ -30,7 +32,7 @@ export const registerAction = async (values: TRegister) => {
         throw new Error(
           `The ${(
             error.meta as { modelName: string; target: string[] }
-          ).target?.at(0)} you have chosen is already in use.`
+          ).target?.at(0)} you have chosen is already in use.`,
         );
       }
     }
@@ -39,4 +41,6 @@ export const registerAction = async (values: TRegister) => {
   }
 };
 
-export const getSession = () => {};
+export const getSession = async () => {
+  return await getServerSession(authOptions);
+};

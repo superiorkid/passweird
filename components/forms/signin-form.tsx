@@ -40,7 +40,7 @@ const SignInForm = () => {
             toast.success("Logged in");
             router.push("/dashboard");
           }
-        }
+        },
       );
     },
   });

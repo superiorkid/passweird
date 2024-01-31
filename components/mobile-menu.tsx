@@ -24,10 +24,13 @@ import {
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { User } from "@prisma/client";
 
-const MobileMenu = () => {
-  const auth = false;
+interface MobileMenuProps {
+  currentUser: User | null;
+}
 
+const MobileMenu = ({ currentUser }: MobileMenuProps) => {
   return (
     <div className="lg:hidden">
       <Sheet>
@@ -53,7 +56,7 @@ const MobileMenu = () => {
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              {auth ? (
+              {currentUser ? (
                 <>
                   <NavigationMenuItem>
                     <Link href="/dashboard" legacyBehavior passHref>

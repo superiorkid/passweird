@@ -4,8 +4,13 @@ import Container from "./container";
 import Menu from "./menu";
 import AuthButtonGroup from "./auth-button-group";
 import MobileMenu from "./mobile-menu";
+import { User } from "@prisma/client";
 
-const Navigation = () => {
+interface NavigationProps {
+  currentUser: User | null;
+}
+
+const Navigation = ({ currentUser }: NavigationProps) => {
   return (
     <nav className="sticky top-0 z-10 border-b bg-background py-2 shadow-sm lg:px-5">
       <Container className="flex max-w-screen-xl items-center justify-between px-7 lg:px-0">
@@ -13,8 +18,8 @@ const Navigation = () => {
           <Brand />
           <Menu />
         </div>
-        <AuthButtonGroup />
-        <MobileMenu />
+        <AuthButtonGroup currentUser={currentUser} />
+        <MobileMenu currentUser={currentUser} />
       </Container>
     </nav>
   );
