@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(GeistSans.className, "dark:bg-zinc-900")}>
+      <body className={cn(GeistSans.className, "antialiased dark:bg-zinc-900")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

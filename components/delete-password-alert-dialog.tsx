@@ -31,10 +31,8 @@ const DeletePasswordAlertDialog = () => {
         </AlertDialogHeader>
         <AlertDialogFooter className="flex">
           <AlertDialogCancel className="flex-1">Cancel</AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Button className="flex-1" variant="destructive">
-              Delete
-            </Button>
+          <AlertDialogAction className="flex-1 bg-rose-500">
+            Delete
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -15,13 +15,13 @@ const DashboardLayout = ({
   return (
     <Container className="max-w-screen-3xl">
       <ResizablePanelGroup direction="horizontal" className="min-h-screen">
-        <ResizablePanel defaultSize={20}>
+        <ResizablePanel defaultSize={19}>
           <Sidebar />
         </ResizablePanel>
 
         <ResizableHandle withHandle />
 
-        <ResizablePanel defaultSize={80}>
+        <ResizablePanel defaultSize={81}>
           <div className="max-h-screen overflow-y-auto">
             <Container className=" max-w-screen-lg px-5 py-3">
               {children}

@@ -1,10 +1,12 @@
+import { Account } from "./account";
 import CategoriesMenu from "./categories-menu";
 import DashboardsMenu from "./dashboards-menu";
 
 const Sidebar = () => {
   return (
-    <aside className="flex max-h-screen overflow-y-auto overflow-x-hidden px-6 py-3">
+    <aside className="flex max-h-screen overflow-y-auto overflow-x-hidden px-4 py-3">
       <div className="w-full space-y-5">
+        <Account />
         <div className="space-y-2.5">
           <h1 className="font-bold">Passwords</h1>
           <DashboardsMenu />

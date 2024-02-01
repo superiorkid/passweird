@@ -1,10 +1,7 @@
 import AddNewPasswordDialog from "@/components/add-new-password-dialog";
 import Header from "@/components/header";
 import PasswordCollectionCard from "@/components/password-collection-card";
-import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LucidePlus } from "lucide-react";
-import Link from "next/link";
 
 const DashboardPage = () => {
   return (
@@ -19,8 +16,8 @@ const DashboardPage = () => {
         <AddNewPasswordDialog />
       </div>
 
-      <div className="space-y-2">
-        {Array.from({ length: 5 }).map((_, index) => (
+      <div className="space-y-2.5">
+        {Array.from({ length: 10 }).map((_, index) => (
           <PasswordCollectionCard key={index} />
         ))}
       </div>
