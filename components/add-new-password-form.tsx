@@ -1,6 +1,12 @@
 "use client";
 
-import React from "react";
+import {
+  TPasswordSchema,
+  passwordSchema,
+} from "@/lib/validators/password-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "./ui/button";
 import {
   Form,
   FormControl,
@@ -10,21 +16,12 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  TPasswordSchema,
-  passwordSchema,
-} from "@/lib/validators/password-schema";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { MagnetIcon, PlusCircle } from "lucide-react";
 
 const AddNewPasswoForm = () => {
   const form = useForm<TPasswordSchema>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
-      websiteName: "",
       username: "",
       email: "",
       password: "",
@@ -38,32 +35,18 @@ const AddNewPasswoForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3.5">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         <FormField
           control={form.control}
-          name="websiteName"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Website Name</FormLabel>
+              <FormLabel>
+                Email <span className="text-zinc-500">(Optional)</span>
+              </FormLabel>
               <FormControl>
-                <Input placeholder="Enter website name" {...field} />
+                <Input placeholder="Enter email address" {...field} />
               </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="url"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>URL</FormLabel>
-              <FormControl>
-                <Input placeholder="Enter website URL" {...field} />
-              </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
@@ -77,26 +60,9 @@ const AddNewPasswoForm = () => {
               <FormLabel>
                 Username <span className="text-zinc-500">(Optional)</span>
               </FormLabel>
-
               <FormControl>
-                <Input placeholder="Enter email address" {...field} />
+                <Input placeholder="Enter username" {...field} />
               </FormControl>
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                Email <span className="text-zinc-500">(Optional)</span>
-              </FormLabel>
-              <FormControl>
-                <Input placeholder="Enter email address" {...field} />
-              </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -117,6 +83,21 @@ const AddNewPasswoForm = () => {
               <FormDescription>
                 Enter the password for the website or service.
               </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>URL</FormLabel>
+              <FormControl>
+                <Input placeholder="Enter website URL" {...field} />
+              </FormControl>
+
               <FormMessage />
             </FormItem>
           )}
