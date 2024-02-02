@@ -1,5 +1,4 @@
 import { LucideIcon } from "lucide-react";
-import { SVGProps } from "react";
 
 export type Menu = {
   label: string;
@@ -7,3 +6,4 @@ export type Menu = {
   icon: LucideIcon;
   isActive: boolean;
 };
+

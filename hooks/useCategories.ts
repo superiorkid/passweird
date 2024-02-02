@@ -4,76 +4,89 @@ import {
   CreditCard,
   FileText,
   Globe,
+  ListMinus,
   Mail,
   School,
   Shell,
   UserCircle2,
   Wifi,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
-export default function useCategories() {
-  const pathname = usePathname();
+interface CategoryParam extends Omit<Menu, "href"> {
+  value: string | undefined;
+}
 
-  const categories = useMemo<Menu[]>(
+export default function useCategories() {
+  const searchParams = useSearchParams();
+
+  const category = searchParams.get("category");
+
+  const categories = useMemo<CategoryParam[]>(
     () => [
       {
+        label: "all",
+        value: undefined,
+        icon: ListMinus,
+        isActive: !category,
+      },
+      {
         label: "web logins",
-        href: "/dashboard/categories/web-logins",
+        value: "web-logins",
         icon: Globe,
-        isActive: pathname === "/dashboard/categories/web-logins",
+        isActive: category === "web-logins",
       },
       {
         label: "credit cards",
-        href: "/dashboard/categories/credit-cards",
+        value: "credit-cards",
         icon: CreditCard,
-        isActive: pathname === "/dashboard/categories/credit-cards",
+        isActive: category === "credit-cards",
       },
       {
         label: "identity documents",
-        href: "/dashboard/categories/identity-documents",
+        value: "identity-documents",
         icon: UserCircle2,
-        isActive: pathname === "/dashboard/categories/identity-documents",
+        isActive: category === "identity-documents",
       },
       {
         label: "notes",
-        href: "/dashboard/categories/notes",
+        value: "notes",
         icon: FileText,
-        isActive: pathname === "/dashboard/categories/notes",
+        isActive: category === "notes",
       },
       {
         label: "social media accounts",
-        href: "/dashboard/categories/social-media-accounts",
+        value: "social-media-accounts",
         icon: AtSign,
-        isActive: pathname === "/dashboard/categories/social-media-accounts",
+        isActive: category === "social-media-accounts",
       },
       {
         label: "email accounts",
-        href: "/dashboard/categories/email-accounts",
+        value: "email-accounts",
         icon: Mail,
-        isActive: pathname === "/dashboard/categories/email-accounts",
+        isActive: category === "email-accounts",
       },
       {
         label: "wifi passwords",
-        href: "/dashboard/categories/wifi-passwords",
+        value: "wifi-passwords",
         icon: Wifi,
-        isActive: pathname === "/dashboard/categories/wifi-passwords",
+        isActive: category === "email-accounts",
       },
       {
         label: "bank accounts",
-        href: "/dashboard/categories/bank-accounts",
+        value: "bank-accounts",
         icon: School,
-        isActive: pathname === "/dashboard/categories/bank-accounts",
+        isActive: category === "bank-accounts",
       },
       {
         label: "others",
-        href: "/dashboard/categories/others",
+        value: "others",
         icon: Shell,
-        isActive: pathname === "/dashboard/categories/others",
+        isActive: category === "others",
       },
     ],
-    [pathname],
+    [category],
   );
 
   return categories;
