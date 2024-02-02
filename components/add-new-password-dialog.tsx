@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,11 +11,18 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "./ui/button";
 import { LucidePlus } from "lucide-react";
-import AddNewPasswoForm from "./add-new-password-form";
+import AddNewPasswoForm from "./forms/add-new-password-form";
+import { Category } from "@prisma/client";
 
-const AddNewPasswordDialog = () => {
+interface AddNewPasswordDialogProps {
+  categories: Category[];
+}
+
+const AddNewPasswordDialog = ({ categories }: AddNewPasswordDialogProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={setIsOpen} open={isOpen}>
       <DialogTrigger asChild>
         <Button>
           <LucidePlus className="mr-2 h-4 w-4" />
@@ -28,7 +37,10 @@ const AddNewPasswordDialog = () => {
           </DialogDescription>
         </DialogHeader>
         <div>
-          <AddNewPasswoForm />
+          <AddNewPasswoForm
+            categories={categories}
+            setIsModalOpen={setIsOpen}
+          />
         </div>
       </DialogContent>
     </Dialog>

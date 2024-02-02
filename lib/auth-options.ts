@@ -54,12 +54,12 @@ const authOptions: NextAuthOptions = {
           },
         });
 
-        if (!user || !user.password)
+        if (!user || !user.hashedPassword)
           throw new Error("Invalid credentials: User not found.");
 
         const passwordMatches = await bcrypt.compare(
           credentials.password,
-          user.password,
+          user.hashedPassword,
         );
 
         if (!passwordMatches)

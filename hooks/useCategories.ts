@@ -6,6 +6,7 @@ import {
   Globe,
   Mail,
   School,
+  Shell,
   UserCircle2,
   Wifi,
 } from "lucide-react";
@@ -64,6 +65,12 @@ export default function useCategories() {
         href: "/dashboard/categories/bank-accounts",
         icon: School,
         isActive: pathname === "/dashboard/categories/bank-accounts",
+      },
+      {
+        label: "others",
+        href: "/dashboard/categories/others",
+        icon: Shell,
+        isActive: pathname === "/dashboard/categories/others",
       },
     ],
     [pathname],

@@ -12,10 +12,11 @@ const DashboardsMenu = () => {
     <div className="space-y-0.5">
       {dashboardMenu.map(({ href, icon: Icon, isActive, label }, index) => (
         <Link
+          key={index}
           href={href}
           className={cn(
             buttonVariants({
-              variant: "ghost",
+              variant: isActive ? "default" : "ghost",
               className: "w-full justify-start capitalize",
             }),
           )}

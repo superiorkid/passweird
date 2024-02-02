@@ -1,11 +1,9 @@
 "use server";
 
-import authOptions from "@/lib/auth-options";
 import { TRegister, registerSchema } from "@/lib/validators/auth-schema";
 import prisma from "@/prisma/db";
 import { Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { getServerSession } from "next-auth";
 
 export const registerAction = async (values: TRegister) => {
   const validation = registerSchema.safeParse(values);
@@ -20,7 +18,7 @@ export const registerAction = async (values: TRegister) => {
 
   try {
     await prisma.user.create({
-      data: { name: username, password: hashedPassword, email },
+      data: { name: username, hashedPassword, email },
     });
 
     return {

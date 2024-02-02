@@ -38,14 +38,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?   @unique
-  email         String?   @unique
-  emailVerified DateTime?
-  password      String?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id             String     @id @default(cuid())
+  name           String?    @unique
+  email          String?    @unique
+  emailVerified  DateTime?
+  hashedPassword String?
+  image          String?
+  accounts       Account[]
+  sessions       Session[]
+  passwords      Password[]
+
+  @@index([name, email])
 }
 
 model VerificationToken {
@@ -54,4 +57,34 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  passwords Password[]
+
+  @@index([name, slug])
+}
+
+model Password {
+  id          String   @id @default(cuid())
+  websiteName String
+  email       String?
+  username    String?
+  password    String
+  url         String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+
+  @@index([websiteName])
 }

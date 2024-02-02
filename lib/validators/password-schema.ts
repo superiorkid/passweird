@@ -1,9 +1,13 @@
 import { z } from "zod";
 
 export const passwordSchema = z.object({
-  url: z
-    .string()
-    .url({ message: "The URL is not valid. Please enter a valid URL." }),
+  websiteName: z.string().min(1, { message: "Please enter a website name" }),
+  url: z.union([
+    z.literal(""),
+    z
+      .string()
+      .url({ message: "The URL is not valid. Please enter a valid URL." }),
+  ]),
   username: z.string().optional(),
   email: z.union([
     z.literal(""),
@@ -13,6 +17,7 @@ export const passwordSchema = z.object({
     }),
   ]),
   password: z.string().min(1, { message: "Please enter a password." }),
+  category: z.string().min(1, { message: "Please select  a category." }),
 });
 
 export type TPasswordSchema = z.infer<typeof passwordSchema>;

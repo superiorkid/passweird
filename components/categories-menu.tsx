@@ -1,14 +1,28 @@
 "use client";
 
-import Link from "next/link";
-import React from "react";
-import { buttonVariants } from "./ui/button";
-import { LucideGlobe } from "lucide-react";
-import { cn } from "@/lib/utils";
 import useCategories from "@/hooks/useCategories";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { buttonVariants } from "./ui/button";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 
 const CategoriesMenu = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const categoreis = useCategories();
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
 
   return (
     <div className="space-y-0.5">
