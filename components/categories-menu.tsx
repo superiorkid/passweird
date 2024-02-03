@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import { Badge } from "./ui/badge";
 
 const CategoriesMenu = () => {
   const router = useRouter();

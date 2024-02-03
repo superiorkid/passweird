@@ -59,7 +59,7 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your username" {...field} />
+                <Input placeholder="Enter your username" autoFocus {...field} />
               </FormControl>
               <FormDescription>
                 Choose a unique username that others will see.

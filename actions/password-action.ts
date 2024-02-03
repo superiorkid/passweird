@@ -7,14 +7,22 @@ import {
 import prisma from "@/prisma/db";
 import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "./user-action";
+import { Prisma } from "@prisma/client";
 
-export const getPasswordCollection = async () => {
+export const getPasswordCollection = async (param: { category: string }) => {
   try {
     const currentUser = await getCurrentUser();
 
     const passwords = await prisma.password.findMany({
       where: {
-        userId: currentUser?.id,
+        AND: [
+          {
+            userId: currentUser?.id,
+          },
+          {
+            category: { slug: param.category },
+          },
+        ],
       },
       include: {
         category: true,
@@ -80,5 +88,73 @@ export const deletePassword = async (collectionId: string) => {
   } catch (error) {
     console.error(error);
     throw new Error("Failed to delete password collection");
+  }
+};
+
+export const totalUserPasswordSaved = async () => {
+  const currentUser = await getCurrentUser();
+
+  try {
+    const total = await prisma.password.count({
+      where: {
+        userId: currentUser?.id,
+      },
+    });
+
+    return total;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to get total password");
+  }
+};
+
+export const editPassword = async (param: {
+  values: TPasswordSchema;
+  id: string;
+}) => {
+  const {
+    id,
+    values: { category, email, password, url, websiteName, username },
+  } = param;
+
+  const passwordExists = await getPassword({ id });
+
+  if (!passwordExists) throw new Error("Password not found");
+
+  try {
+    await prisma.password.update({
+      where: { id: passwordExists.id },
+      data: {
+        password,
+        websiteName,
+        email: email || undefined,
+        username: username || undefined,
+        url: url || undefined,
+        category: {
+          connect: {
+            id: category,
+          },
+        },
+      },
+    });
+
+    revalidatePath("/dashboard");
+
+    return {
+      message: "Update password successfully",
+    };
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to update password");
+  }
+};
+
+export const getPassword = async (where: Prisma.PasswordWhereInput) => {
+  try {
+    const password = await prisma.password.findFirst({ where });
+    return password;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to get passwod");
   }
 };

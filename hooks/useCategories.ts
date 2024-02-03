@@ -71,7 +71,7 @@ export default function useCategories() {
         label: "wifi passwords",
         value: "wifi-passwords",
         icon: Wifi,
-        isActive: category === "email-accounts",
+        isActive: category === "wifi-passwords",
       },
       {
         label: "bank accounts",

@@ -1,16 +1,28 @@
-import { getPasswordCollection } from "@/actions/password-action";
+import { getCategories } from "@/actions/category-action";
+import {
+  getPasswordCollection,
+  totalUserPasswordSaved,
+} from "@/actions/password-action";
 import AddNewPasswordDialog from "@/components/add-new-password-dialog";
 import Header from "@/components/header";
 import PasswordCollectionCard from "@/components/password-collection-card";
-import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Terminal } from "lucide-react";
-import { getCategories } from "@/actions/category-action";
+import { Input } from "@/components/ui/input";
+import { SearchIcon, Terminal } from "lucide-react";
 
-const DashboardPage = async () => {
-  const [passwordsCollection, categories] = await Promise.all([
-    getPasswordCollection(),
+interface DashboarPageProps {
+  searchParams: {
+    category?: string;
+  };
+}
+
+const DashboardPage = async ({
+  searchParams: { category },
+}: DashboarPageProps) => {
+  const [passwordsCollection, categories, total] = await Promise.all([
+    getPasswordCollection({ category: category as string }),
     getCategories(),
+    totalUserPasswordSaved(),
   ]);
 
   return (
@@ -21,11 +33,16 @@ const DashboardPage = async () => {
       />
 
       <div className="mb-6 flex items-center space-x-3">
-        <Input
-          type="text"
-          placeholder="Search"
-          disabled={!passwordsCollection.length}
-        />
+        <div className="relative w-full min-w-0">
+          <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-600" />
+          <Input
+            type="text"
+            placeholder="Search"
+            disabled={!total}
+            className="pl-11"
+          />
+        </div>
+
         <AddNewPasswordDialog categories={categories} />
       </div>
 
@@ -40,7 +57,11 @@ const DashboardPage = async () => {
           </Alert>
         ) : (
           passwordsCollection.map((collection, index) => (
-            <PasswordCollectionCard password={collection} key={index} />
+            <PasswordCollectionCard
+              key={index}
+              password={collection}
+              categories={categories}
+            />
           ))
         )}
       </div>

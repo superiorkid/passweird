@@ -1,3 +1,4 @@
+import { getCurrentUser } from "@/actions/user-action";
 import Container from "@/components/container";
 import Sidebar from "@/components/sidebar";
 import {
@@ -7,16 +8,18 @@ import {
 } from "@/components/ui/resizable";
 import React from "react";
 
-const DashboardLayout = ({
+const DashboardLayout = async ({
   children,
 }: {
   children: Readonly<React.ReactNode>;
 }) => {
+  const currentUser = await getCurrentUser();
+
   return (
     <Container className="max-w-screen-3xl">
       <ResizablePanelGroup direction="horizontal" className="min-h-screen">
         <ResizablePanel defaultSize={19}>
-          <Sidebar />
+          <Sidebar currentUser={currentUser} />
         </ResizablePanel>
 
         <ResizableHandle withHandle />

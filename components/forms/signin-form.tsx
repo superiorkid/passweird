@@ -62,6 +62,7 @@ const SignInForm = () => {
                 <Input
                   placeholder="Enter your email/username"
                   disabled={isPending}
+                  autoFocus
                   {...field}
                 />
               </FormControl>

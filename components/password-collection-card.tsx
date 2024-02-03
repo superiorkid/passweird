@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Category, Prisma } from "@prisma/client";
 import { LucideEdit } from "lucide-react";
 import CategoryIcon from "./category-icon";
 import DeletePasswordAlertDialog from "./delete-password-alert-dialog";
@@ -11,8 +11,10 @@ import {
 } from "./ui/accordion";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
+import EditPasswordDialog from "./edit-password-dialog";
 
 interface PasswordCollectionCardProps {
+  categories: Category[];
   password: Prisma.PasswordGetPayload<{
     include: {
       category: true;
@@ -20,7 +22,10 @@ interface PasswordCollectionCardProps {
   }>;
 }
 
-const PasswordCollectionCard = ({ password }: PasswordCollectionCardProps) => {
+const PasswordCollectionCard = ({
+  password,
+  categories,
+}: PasswordCollectionCardProps) => {
   return (
     <Card>
       <CardContent className="p-0 px-5">
@@ -40,10 +45,10 @@ const PasswordCollectionCard = ({ password }: PasswordCollectionCardProps) => {
               <PasswordContent password={password} />
               <div className="flex items-center space-x-3 px-2">
                 <DeletePasswordAlertDialog passwordId={password.id} />
-                <Button variant="secondary" className="flex-1" size="sm">
-                  <LucideEdit className="mr-2 h-4 w-4" />
-                  Edit
-                </Button>
+                <EditPasswordDialog
+                  categories={categories}
+                  password={password}
+                />
               </div>
             </AccordionContent>
           </AccordionItem>
