@@ -1,24 +1,32 @@
+import { getCurrentUser } from "@/actions/user-action";
 import SignUpForm from "@/components/forms/signup-form";
 import { type Metadata } from "next";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Sign Up | Passweird",
   description: "Password manager. built using nextjs",
 };
 
-const SignUpPage = () => {
+const SignUpPage = async () => {
+  const currentUser = await getCurrentUser();
+
+  if (currentUser) {
+    redirect("/dashboard");
+  }
+
   return (
-    <div className="min-h-screen flex justify-center items-center relative">
+    <div className="relative flex min-h-screen items-center justify-center">
       <Link
         href="/sign-in"
-        className="absolute top-8 right-10 text-sm hover:underline underline-offset-4 transition-all duration-300 capitalize"
+        className="absolute right-10 top-8 text-sm capitalize underline-offset-4 transition-all duration-300 hover:underline"
       >
         sign in
       </Link>
 
-      <div className="space-y-5 min-w-[458px]">
-        <div className="text-center space-y-1.5">
+      <div className="min-w-[458px] space-y-5">
+        <div className="space-y-1.5 text-center">
           <h1 className="text-3xl font-light">
             Next/<span className="font-bold">Passw*ird</span>
           </h1>
@@ -27,7 +35,7 @@ const SignUpPage = () => {
             app
           </p>
         </div>
-        <div className="p-5 space-y-3">
+        <div className="space-y-3 p-5">
           <SignUpForm />
         </div>
       </div>
