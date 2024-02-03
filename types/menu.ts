@@ -5,5 +5,5 @@ export type Menu = {
   href: string;
   icon: LucideIcon;
   isActive: boolean;
+  isAvailable: boolean;
 };
-

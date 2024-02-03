@@ -6,21 +6,25 @@ import {
 import AddNewPasswordDialog from "@/components/add-new-password-dialog";
 import Header from "@/components/header";
 import PasswordCollectionCard from "@/components/password-collection-card";
+import SearchPassword from "@/components/search-password";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Input } from "@/components/ui/input";
-import { SearchIcon, Terminal } from "lucide-react";
+import { Terminal } from "lucide-react";
 
 interface DashboarPageProps {
   searchParams: {
     category?: string;
+    search?: string;
   };
 }
 
 const DashboardPage = async ({
-  searchParams: { category },
+  searchParams: { category, search },
 }: DashboarPageProps) => {
   const [passwordsCollection, categories, total] = await Promise.all([
-    getPasswordCollection({ category: category as string }),
+    getPasswordCollection({
+      category: category as string,
+      search: search as string,
+    }),
     getCategories(),
     totalUserPasswordSaved(),
   ]);
@@ -33,16 +37,7 @@ const DashboardPage = async ({
       />
 
       <div className="mb-6 flex items-center space-x-3">
-        <div className="relative w-full min-w-0">
-          <SearchIcon className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-600" />
-          <Input
-            type="text"
-            placeholder="Search"
-            disabled={!total}
-            className="pl-11"
-          />
-        </div>
-
+        <SearchPassword total={total} />
         <AddNewPasswordDialog categories={categories} />
       </div>
 

@@ -10,21 +10,23 @@ const DashboardsMenu = () => {
 
   return (
     <div className="space-y-0.5">
-      {dashboardMenu.map(({ href, icon: Icon, isActive, label }, index) => (
-        <Link
-          key={index}
-          href={href}
-          className={cn(
-            buttonVariants({
-              variant: isActive ? "default" : "ghost",
-              className: "w-full justify-start capitalize",
-            }),
-          )}
-        >
-          <Icon className="mr-2 h-4 w-4 flex-none" />
-          {label}
-        </Link>
-      ))}
+      {dashboardMenu.map(
+        ({ href, icon: Icon, isActive, label, isAvailable }, index) => (
+          <Link
+            key={index}
+            href={href}
+            className={cn(
+              buttonVariants({
+                variant: isActive ? "default" : "ghost",
+                className: "w-full justify-start capitalize",
+              }),
+            )}
+          >
+            <Icon className="mr-2 h-4 w-4 flex-none" />
+            {label}
+          </Link>
+        ),
+      )}
     </div>
   );
 };

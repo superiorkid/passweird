@@ -9,7 +9,10 @@ import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "./user-action";
 import { Prisma } from "@prisma/client";
 
-export const getPasswordCollection = async (param: { category: string }) => {
+export const getPasswordCollection = async (param: {
+  category: string;
+  search: string;
+}) => {
   try {
     const currentUser = await getCurrentUser();
 
@@ -21,6 +24,11 @@ export const getPasswordCollection = async (param: { category: string }) => {
           },
           {
             category: { slug: param.category },
+          },
+          {
+            websiteName: {
+              contains: param.search,
+            },
           },
         ],
       },

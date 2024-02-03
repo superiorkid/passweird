@@ -14,7 +14,7 @@ import {
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
-interface CategoryParam extends Omit<Menu, "href"> {
+interface CategoryParam extends Omit<Menu, "href" | "isAvailable"> {
   value: string | undefined;
 }
 
