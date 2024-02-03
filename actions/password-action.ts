@@ -1,8 +1,8 @@
 "use server";
 
 import {
-  TPasswordSchema,
   passwordSchema,
+  TPasswordSchema,
 } from "@/lib/validators/password-schema";
 import prisma from "@/prisma/db";
 import { revalidatePath } from "next/cache";
