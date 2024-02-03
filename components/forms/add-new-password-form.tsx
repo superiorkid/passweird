@@ -80,7 +80,11 @@ const AddNewPasswoForm = ({
               <FormLabel>Category</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <SelectTrigger autoFocus disabled={isPending}>
+                  <SelectTrigger
+                    autoFocus
+                    disabled={isPending}
+                    className="capitalize"
+                  >
                     <SelectValue placeholder="Select Categories" />
                   </SelectTrigger>
                 </FormControl>
