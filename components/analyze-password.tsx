@@ -6,7 +6,33 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { passwordStrength, Result } from "check-password-strength";
 import { cn } from "@/lib/utils";
 import CopyToClipboard from "@/components/copy-to-clipboard";
-import { passwordStrengthIndicator } from "@/constants/password-indicator";
+
+export const passwordStrengthIndicator: {
+  id: number;
+  color: string;
+  length: number;
+}[] = [
+  {
+    id: 0,
+    length: 1,
+    color: "bg-zinc-500",
+  },
+  {
+    id: 1,
+    length: 2,
+    color: "bg-rose-500",
+  },
+  {
+    id: 2,
+    length: 3,
+    color: "bg-amber-400",
+  },
+  {
+    id: 3,
+    length: 4,
+    color: "bg-emerald-500",
+  },
+];
 
 function AnalyzePassword() {
   const [passwordTerm, setPasswordTerm] = useState<string | undefined>(
@@ -15,11 +41,9 @@ function AnalyzePassword() {
   const debouncedSearchTerm = useDebounce(passwordTerm, 300);
   const [status, setStatus] = useState<Result<string> | undefined>(undefined);
 
-  const passwordIndicator = useMemo(() => {
-    return passwordStrengthIndicator.find(
-      (indicator) => indicator.id === status?.id,
-    );
-  }, [status?.id]);
+  const passwordIndicator = passwordStrengthIndicator.find(
+    (indicator) => indicator.id === status?.id,
+  );
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPasswordTerm((passwordTerm) => event.target.value);
