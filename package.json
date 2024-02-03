@@ -30,6 +30,7 @@
     "@tanstack/react-query-devtools": "^5.17.21",
     "@uidotdev/usehooks": "^2.4.1",
     "bcrypt": "^5.1.1",
+    "check-password-strength": "^2.0.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",

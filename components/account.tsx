@@ -22,7 +22,9 @@ export function Account({ currentUser }: AccountProps) {
             {/* TODO: long name broken overflow */}
             <div className="inline-flex items-center">
               <Avatar className="mr-3 h-7 w-7">
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage
+                  src={`https://api.dicebear.com/7.x/adventurer-neutral/png?seed=${currentUser?.email}`}
+                />
                 <AvatarFallback>MI</AvatarFallback>
               </Avatar>
               {currentUser?.name}
