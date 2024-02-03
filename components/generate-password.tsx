@@ -1,20 +1,18 @@
-import React from "react";
-import { Input } from "@/components/ui/input";
+"use client";
+
+import React, { useState } from "react";
 import GeneratePasswordForm from "@/components/forms/generate-password-form";
-import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import GeneratePasswordResult from "@/components/generate-password-result";
 
 function GeneratePassword() {
+  const [generatedPassword, setGeneratedPassword] = useState<
+    string | undefined
+  >(undefined);
+
   return (
     <div className="space-y-3">
-      <div className="flex space-x-3">
-        <Input placeholder="your password generated" />
-        <Button variant="outline" size="icon">
-          <Copy className="h-5 w-5" />
-        </Button>
-      </div>
-
-      <GeneratePasswordForm />
+      <GeneratePasswordResult generatedPassword={generatedPassword as string} />
+      <GeneratePasswordForm setGeneratedPassword={setGeneratedPassword} />
     </div>
   );
 }

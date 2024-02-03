@@ -23,34 +23,49 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Switch } from "@/components/ui/switch";
 import { useMutation } from "@tanstack/react-query";
 import { generatePassword } from "@/actions/generate-password-action";
+import { toast } from "sonner";
 
-function GeneratePasswordForm() {
+interface GeneratePasswordFormProps {
+  setGeneratedPassword: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >;
+}
+
+function GeneratePasswordForm({
+  setGeneratedPassword,
+}: GeneratePasswordFormProps) {
   const form = useForm<TGeneratePasswordSchema>({
     resolver: zodResolver(generatePasswordSchema),
     defaultValues: {
       length: 6,
       uppercase: true,
       lowercase: true,
-      specialCharacters: true,
+      specialCharacters: false,
       digits: true,
     },
   });
 
-  const {mutateAsync, isPending} = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: async (values: TGeneratePasswordSchema) =>
-      await generatePassword(values),
+      await generatePassword(values)
+        .then((callback) => {
+          setGeneratedPassword((password) => callback.password);
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        }),
   });
 
   const onSubmit = async (values: TGeneratePasswordSchema) => {
-    await mutateAsync((values))
+    await mutateAsync(values);
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <Button className="w-full" type="submit">
+        <Button className="w-full" type="submit" disabled={isPending}>
           <Wand2 className="mr-2 h-4 w-4" />
-          Generate Password
+          {isPending ? "Generating..." : "Generate Password"}
         </Button>
 
         <Separator orientation="horizontal" />
@@ -63,6 +78,7 @@ function GeneratePasswordForm() {
               <FormLabel>Length - {value}</FormLabel>
               <FormControl>
                 <Slider
+                  disabled={isPending}
                   min={6}
                   max={50}
                   step={1}
@@ -93,6 +109,7 @@ function GeneratePasswordForm() {
               </div>
               <FormControl>
                 <Switch
+                  disabled={isPending}
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
@@ -114,6 +131,7 @@ function GeneratePasswordForm() {
               </div>
               <FormControl>
                 <Switch
+                  disabled={isPending}
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
@@ -135,6 +153,7 @@ function GeneratePasswordForm() {
               </div>
               <FormControl>
                 <Switch
+                  disabled={isPending}
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
@@ -156,6 +175,7 @@ function GeneratePasswordForm() {
               </div>
               <FormControl>
                 <Switch
+                  disabled={isPending}
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
