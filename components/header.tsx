@@ -17,7 +17,8 @@ const Header = ({ title, description, className }: HeaderProps) => {
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="text-zinc-500">{description}</p>
       </div>
-      <ThemeSwitcher />
+
+      <ThemeSwitcher className="hidden md:flex" />
     </header>
   );
 };

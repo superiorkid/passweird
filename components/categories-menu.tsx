@@ -2,12 +2,22 @@
 
 import useCategories from "@/hooks/useCategories";
 import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
-import { Badge } from "./ui/badge";
+import { Dispatch, useCallback } from "react";
+import { Button } from "./ui/button";
 
-const CategoriesMenu = () => {
+type Mobile = {
+  variant: "MOBILE";
+  setOpenSheet: Dispatch<React.SetStateAction<boolean>>;
+};
+
+type Desktop = {
+  variant: "DESKTOP";
+};
+
+type CategoriesMenuProps = Mobile | Desktop;
+
+const CategoriesMenu = (props: CategoriesMenuProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -34,13 +44,17 @@ const CategoriesMenu = () => {
       {categories.map(({ value, icon: Icon, label, isActive }, index) => (
         <Button
           key={index}
-          className={cn("w-full justify-start capitalize")}
+          className={cn("w-full justify-start overflow-hidden capitalize")}
           variant={isActive ? "secondary" : "ghost"}
-          onClick={() =>
+          onClick={() => {
             router.push(
               pathname + "?" + createQueryString("category", value as string),
-            )
-          }
+            );
+
+            if (props.variant === "MOBILE") {
+              props.setOpenSheet((open) => !open);
+            }
+          }}
         >
           <Icon className="mr-2 h-4 w-4 flex-none" />
           {label}

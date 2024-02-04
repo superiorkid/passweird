@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { User } from "@prisma/client";
+import { AlignRight } from "lucide-react";
 
 interface MobileMenuProps {
   currentUser: User | null;
@@ -26,7 +27,7 @@ const MobileMenu = ({ currentUser }: MobileMenuProps) => {
         <SheetTrigger asChild>
           {/* TODO: Dark mode not effected */}
           <Button variant="ghost" size="icon" className="">
-            <IconParkHamburgerButton className="h-6 w-6 dark:fill-white" />
+            <AlignRight className="h-6 w-6" />
           </Button>
         </SheetTrigger>
         <SheetContent className="flex min-h-screen w-[100dvw] items-center justify-center dark:bg-gray-900 md:w-[540px]">

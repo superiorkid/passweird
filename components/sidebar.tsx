@@ -14,12 +14,12 @@ const Sidebar = ({ currentUser }: SidebarProps) => {
         <Account currentUser={currentUser} />
         <div className="space-y-2.5">
           <h1 className="font-bold">Passwords</h1>
-          <DashboardsMenu />
+          <DashboardsMenu variant="DESKTOP" />
         </div>
 
         <div className="space-y-2.5">
           <h1 className="font-bold">Categories</h1>
-          <CategoriesMenu />
+          <CategoriesMenu variant="DESKTOP" />
         </div>
       </div>
     </aside>

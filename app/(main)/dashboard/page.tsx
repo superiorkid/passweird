@@ -34,6 +34,7 @@ const DashboardPage = async ({
       <Header
         title="All Passwords"
         description="Safety manage and access your passwords."
+        className="mt-5"
       />
 
       <div className="mb-6 flex items-center space-x-3">

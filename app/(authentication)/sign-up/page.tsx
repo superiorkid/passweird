@@ -25,17 +25,20 @@ const SignUpPage = async () => {
         sign in
       </Link>
 
-      <div className="min-w-[458px] space-y-5">
+      <div className="min-w-[420px] space-y-5">
         <div className="space-y-1.5 text-center">
           <h1 className="text-3xl font-light">
-            Next/<span className="font-bold">Passw*ird</span>
+            Next/
+            <Link href="/" className="font-bold">
+              Passw*ird
+            </Link>
           </h1>
           <p className="text-sm text-zinc-500 [text-wrap:balance]">
             <span className="font-bold">Register</span> to continue using this
             app
           </p>
         </div>
-        <div className="space-y-3 p-5">
+        <div className="p-5 md:p-0">
           <SignUpForm />
         </div>
       </div>

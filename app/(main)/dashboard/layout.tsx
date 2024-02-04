@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/actions/user-action";
 import Container from "@/components/container";
+import DashboardNavigation from "@/components/dashboard-navigation";
 import Sidebar from "@/components/sidebar";
 import {
   ResizableHandle,
@@ -17,12 +18,14 @@ const DashboardLayout = async ({
 
   return (
     <Container className="max-w-screen-3xl">
+      <DashboardNavigation />
+
       <ResizablePanelGroup direction="horizontal" className="min-h-screen">
-        <ResizablePanel defaultSize={19}>
+        <ResizablePanel defaultSize={19} className="hidden md:block">
           <Sidebar currentUser={currentUser} />
         </ResizablePanel>
 
-        <ResizableHandle withHandle />
+        <ResizableHandle withHandle className="hidden md:flex" />
 
         <ResizablePanel defaultSize={81}>
           <div className="max-h-screen overflow-y-auto">

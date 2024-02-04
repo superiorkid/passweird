@@ -12,7 +12,7 @@ const Homepage = async () => {
     <>
       <Navigation currentUser={currentUser} />
       <Container className="mx-auto max-w-screen-xl">
-        <Hero />
+        <Hero currentUser={currentUser} />
       </Container>
       <Footer />
     </>
