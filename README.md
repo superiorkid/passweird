@@ -10,6 +10,10 @@ Password Manager built with Next.js and shadcn/ui.
 - shadcn/ui
 - neon postgres
 
+## Resources
+
+[UI resource](https://dribbble.com/shots/22572958-Password-Manager-App-Dashboard-Page-Light)
+
 ## Getting Started
 
 First, run the development server:
