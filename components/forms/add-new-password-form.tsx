@@ -29,6 +29,8 @@ import { useMutation } from "@tanstack/react-query";
 import { addNewPassword } from "@/actions/password-action";
 import { toast } from "sonner";
 import CategoryIcon from "../category-icon";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useReducer } from "react";
 
 interface AddNewPasswoFormProps {
   categories: Category[];
@@ -39,6 +41,8 @@ const AddNewPasswoForm = ({
   categories,
   setIsModalOpen,
 }: AddNewPasswoFormProps) => {
+  const [seePassword, toggleSeePassword] = useReducer((state) => !state, false);
+
   const form = useForm<TPasswordSchema>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
@@ -166,11 +170,25 @@ const AddNewPasswoForm = ({
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Enter password"
-                  {...field}
-                />
+                <div className="flex items-center space-x-3">
+                  <Input
+                    type={seePassword ? "text" : "password"}
+                    placeholder="Enter password"
+                    {...field}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={toggleSeePassword}
+                  >
+                    {seePassword ? (
+                      <EyeOffIcon className="h-4 w-4 text-zinc-700" />
+                    ) : (
+                      <EyeIcon className="h-4 w-4 text-zinc-700" />
+                    )}
+                  </Button>
+                </div>
               </FormControl>
               <FormDescription>
                 Enter the password for the website or service.

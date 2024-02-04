@@ -28,8 +28,9 @@ import {
   SelectValue,
 } from "../ui/select";
 import { editPassword } from "@/actions/password-action";
-import { SetStateAction } from "react";
+import { SetStateAction, useState } from "react";
 import { toast } from "sonner";
+import { Eye, EyeIcon, EyeOffIcon } from "lucide-react";
 
 interface EditPasswordFormProps {
   setIsOpen: React.Dispatch<SetStateAction<boolean>>;
@@ -46,6 +47,8 @@ const EditPasswordForm = ({
   categories,
   setIsOpen,
 }: EditPasswordFormProps) => {
+  const [seePassword, setSeePassword] = useState<boolean>(false);
+
   const form = useForm<TPasswordSchema>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
@@ -175,12 +178,28 @@ const EditPasswordForm = ({
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Enter password"
-                  disabled={isPending}
-                  {...field}
-                />
+                <div className="flex items-center space-x-3">
+                  <Input
+                    type={seePassword ? "text" : "password"}
+                    placeholder="Enter password"
+                    disabled={isPending}
+                    {...field}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={() =>
+                      setSeePassword((seePassword) => !seePassword)
+                    }
+                  >
+                    {seePassword ? (
+                      <EyeOffIcon className="h-4 w-4 text-zinc-700" />
+                    ) : (
+                      <EyeIcon className="h-4 w-4 text-zinc-700" />
+                    )}
+                  </Button>
+                </div>
               </FormControl>
               <FormDescription>
                 Enter the password for the website or service.

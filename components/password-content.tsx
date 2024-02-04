@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { maskPassword } from "@/lib/mask-password";
+import { cryptr } from "@/lib/crypto";
 
 interface PasswordContentProps {
   password: Prisma.PasswordGetPayload<{
@@ -33,8 +34,7 @@ const PasswordContent = ({ password }: PasswordContentProps) => {
         </p>
       ) : null}
       <p className="inline-flex items-center">
-        Password:{" "}
-        {!passwordMask ? password.password : maskPassword(password.password)}
+        Password: {!passwordMask ? password.password : maskPassword(8)}
         <Button
           variant="ghost"
           size="sm"

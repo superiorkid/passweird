@@ -5,9 +5,10 @@ import {
   TPasswordSchema,
 } from "@/lib/validators/password-schema";
 import prisma from "@/prisma/db";
+import { Prisma } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { getCurrentUser } from "./user-action";
-import { Prisma } from "@prisma/client";
+import { cryptr } from "@/lib/crypto";
 
 export const getPasswordCollection = async (param: {
   category: string;
@@ -58,10 +59,12 @@ export const addNewPassword = async (values: TPasswordSchema) => {
 
   const { category, email, password, url, websiteName, username } = values;
 
+  const cryptedPassword = cryptr.encrypt(password);
+
   try {
     await prisma.password.create({
       data: {
-        password,
+        password: cryptedPassword,
         websiteName: websiteName.toLowerCase(),
         email: email.toLowerCase() || undefined,
         username: username?.toLowerCase() || undefined,
@@ -129,12 +132,14 @@ export const editPassword = async (param: {
 
   if (!passwordExists) throw new Error("Password not found");
 
+  const encryptedPassword = cryptr.encrypt(password);
+
   try {
     await prisma.password.update({
       where: { id: passwordExists.id },
       data: {
-        password,
         websiteName,
+        password: encryptedPassword,
         email: email || undefined,
         username: username || undefined,
         url: url || undefined,

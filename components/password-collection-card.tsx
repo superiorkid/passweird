@@ -1,5 +1,4 @@
 import { Category, Prisma } from "@prisma/client";
-import { LucideEdit } from "lucide-react";
 import CategoryIcon from "./category-icon";
 import DeletePasswordAlertDialog from "./delete-password-alert-dialog";
 import PasswordContent from "./password-content";
@@ -9,9 +8,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
-import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import EditPasswordDialog from "./edit-password-dialog";
+import { cryptr } from "@/lib/crypto";
 
 interface PasswordCollectionCardProps {
   categories: Category[];
@@ -26,6 +25,8 @@ const PasswordCollectionCard = ({
   password,
   categories,
 }: PasswordCollectionCardProps) => {
+  const decryptPassword = cryptr.decrypt(password.password);
+
   return (
     <Card>
       <CardContent className="p-0 px-5">
@@ -42,12 +43,14 @@ const PasswordCollectionCard = ({
             </AccordionTrigger>
 
             <AccordionContent className="space-y-2">
-              <PasswordContent password={password} />
+              <PasswordContent
+                password={{ ...password, password: decryptPassword }}
+              />
               <div className="flex items-center space-x-3 px-2">
                 <DeletePasswordAlertDialog passwordId={password.id} />
                 <EditPasswordDialog
                   categories={categories}
-                  password={password}
+                  password={{ ...password, password: decryptPassword }}
                 />
               </div>
             </AccordionContent>

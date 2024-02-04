@@ -1,3 +1,3 @@
-export const maskPassword = (password: string) => {
-  return "*".repeat(password.length);
+export const maskPassword = (length: number) => {
+  return "*".repeat(length);
 };
