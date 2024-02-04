@@ -30,16 +30,16 @@ import { addNewPassword } from "@/actions/password-action";
 import { toast } from "sonner";
 import CategoryIcon from "../category-icon";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { useReducer } from "react";
+import { DispatchWithoutAction, useReducer } from "react";
 
 interface AddNewPasswoFormProps {
   categories: Category[];
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleIsOpen: React.DispatchWithoutAction;
 }
 
 const AddNewPasswoForm = ({
   categories,
-  setIsModalOpen,
+  toggleIsOpen,
 }: AddNewPasswoFormProps) => {
   const [seePassword, toggleSeePassword] = useReducer((state) => !state, false);
 
@@ -61,7 +61,7 @@ const AddNewPasswoForm = ({
         .then((callback) => {
           toast.success(callback.message);
           form.reset();
-          setIsModalOpen((isOpen) => !isOpen);
+          toggleIsOpen();
         })
         .catch((error) => {
           toast.error(error.message);

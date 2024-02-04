@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 
 type Mobile = {
   variant: "MOBILE";
-  setOpenSheet: Dispatch<React.SetStateAction<boolean>>;
+  toggleIsOpen: React.DispatchWithoutAction;
 };
 
 type Desktop = {
@@ -52,7 +52,7 @@ const CategoriesMenu = (props: CategoriesMenuProps) => {
             );
 
             if (props.variant === "MOBILE") {
-              props.setOpenSheet((open) => !open);
+              props.toggleIsOpen();
             }
           }}
         >

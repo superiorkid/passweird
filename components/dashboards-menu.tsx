@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 type Mobile = {
   variant: "MOBILE";
-  setOpenSheet: Dispatch<React.SetStateAction<boolean>>;
+  toggleIsOpen: React.DispatchWithoutAction;
 };
 
 type Desktop = {
@@ -46,7 +46,7 @@ const DashboardsMenu = (props: DashboardMenuProps) => {
             variant={!isActive ? "ghost" : "default"}
             onClick={() => {
               router.push(href);
-              props.setOpenSheet((open) => !open);
+              props.toggleIsOpen();
             }}
           >
             <Icon className="mr-2 h-4 w-4 flex-none" />

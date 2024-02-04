@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -19,10 +19,10 @@ interface AddNewPasswordDialogProps {
 }
 
 const AddNewPasswordDialog = ({ categories }: AddNewPasswordDialogProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
 
   return (
-    <Dialog onOpenChange={setIsOpen} open={isOpen}>
+    <Dialog onOpenChange={toggleIsOpen} open={isOpen}>
       <DialogTrigger asChild>
         <Button>
           <LucidePlus className="mr-2 h-4 w-4" />
@@ -39,7 +39,7 @@ const AddNewPasswordDialog = ({ categories }: AddNewPasswordDialogProps) => {
         <div>
           <AddNewPasswoForm
             categories={categories}
-            setIsModalOpen={setIsOpen}
+            toggleIsOpen={toggleIsOpen}
           />
         </div>
       </DialogContent>

@@ -12,7 +12,7 @@ import { LucideEdit } from "lucide-react";
 import EditPasswordForm from "./forms/edit-password-form";
 import { Button } from "./ui/button";
 import { Category, Prisma } from "@prisma/client";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
 interface EditPasswordDialogProps {
   categories: Category[];
@@ -27,10 +27,11 @@ const EditPasswordDialog = ({
   categories,
   password,
 }: EditPasswordDialogProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  // const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={toggleIsOpen}>
       <DialogTrigger asChild>
         <Button variant="secondary" className="flex-1" size="sm">
           <LucideEdit className="mr-2 h-4 w-4" />
@@ -48,7 +49,7 @@ const EditPasswordDialog = ({
           <EditPasswordForm
             categories={categories}
             password={password}
-            setIsOpen={setIsOpen}
+            toggleIsOpen={toggleIsOpen}
           />
         </div>
       </DialogContent>

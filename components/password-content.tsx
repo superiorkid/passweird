@@ -4,7 +4,7 @@ import { Prisma } from "@prisma/client";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import { maskPassword } from "@/lib/mask-password";
 import { cryptr } from "@/lib/crypto";
 
@@ -17,7 +17,10 @@ interface PasswordContentProps {
 }
 
 const PasswordContent = ({ password }: PasswordContentProps) => {
-  const [passwordMask, setMaskPassword] = useState<boolean>(true);
+  const [passwordMask, togglePasswordMask] = useReducer(
+    (state) => !state,
+    true,
+  );
 
   return (
     <div className="space-y-0.5 rounded-lg border p-4">
@@ -39,7 +42,7 @@ const PasswordContent = ({ password }: PasswordContentProps) => {
           variant="ghost"
           size="sm"
           className="ml-0.5"
-          onClick={() => setMaskPassword((maskPassword) => !maskPassword)}
+          onClick={togglePasswordMask}
         >
           {passwordMask ? (
             <EyeIcon className="h-4 w-4" />

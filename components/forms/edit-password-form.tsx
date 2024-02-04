@@ -28,12 +28,12 @@ import {
   SelectValue,
 } from "../ui/select";
 import { editPassword } from "@/actions/password-action";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useReducer, useState } from "react";
 import { toast } from "sonner";
 import { Eye, EyeIcon, EyeOffIcon } from "lucide-react";
 
 interface EditPasswordFormProps {
-  setIsOpen: React.Dispatch<SetStateAction<boolean>>;
+  toggleIsOpen: React.DispatchWithoutAction;
   categories: Category[];
   password: Prisma.PasswordGetPayload<{
     include: {
@@ -45,9 +45,9 @@ interface EditPasswordFormProps {
 const EditPasswordForm = ({
   password,
   categories,
-  setIsOpen,
+  toggleIsOpen,
 }: EditPasswordFormProps) => {
-  const [seePassword, setSeePassword] = useState<boolean>(false);
+  const [seePassword, toggleSeePassword] = useReducer((state) => !state, false);
 
   const form = useForm<TPasswordSchema>({
     resolver: zodResolver(passwordSchema),
@@ -66,7 +66,7 @@ const EditPasswordForm = ({
       await editPassword({ id: password.id, values: { ...values } })
         .then((callback) => {
           toast.success(callback.message);
-          setIsOpen((isOpen) => !isOpen);
+          toggleIsOpen();
         })
         .catch((error) => {
           toast.error(error.message);
@@ -189,9 +189,7 @@ const EditPasswordForm = ({
                     type="button"
                     variant="outline"
                     size="icon"
-                    onClick={() =>
-                      setSeePassword((seePassword) => !seePassword)
-                    }
+                    onClick={toggleSeePassword}
                   >
                     {seePassword ? (
                       <EyeOffIcon className="h-4 w-4 text-zinc-700" />

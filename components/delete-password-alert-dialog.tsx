@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Button } from "./ui/button";
 import { LucideTrash2 } from "lucide-react";
 import {
@@ -25,7 +25,7 @@ interface DeletePasswordAlertDialogProps {
 const DeletePasswordAlertDialog = ({
   passwordId,
 }: DeletePasswordAlertDialogProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, toggleIsOpen] = useReducer((state) => !state, false);
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (id: string) =>
@@ -37,12 +37,12 @@ const DeletePasswordAlertDialog = ({
           toast.error(error.message);
         })
         .finally(() => {
-          setIsOpen((isOpen) => !isOpen);
+          toggleIsOpen();
         }),
   });
 
   return (
-    <AlertDialog onOpenChange={setIsOpen} open={isOpen}>
+    <AlertDialog onOpenChange={toggleIsOpen} open={isOpen}>
       <AlertDialogTrigger asChild>
         <Button variant="destructive" className="flex-1" size="sm">
           <LucideTrash2 className="mr-2 h-4 w-4" />
