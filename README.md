@@ -14,6 +14,14 @@ Password Manager built with Next.js and shadcn/ui.
 
 [UI resource](https://dribbble.com/shots/22572958-Password-Manager-App-Dashboard-Page-Light)
 
+## Demo
+
+[demo](https://passweird.vercel.app/)
+
+- username: "susan"
+- email: "susan@example.com"
+- password: "susan123"
+
 ## Getting Started
 
 First, run the development server:
