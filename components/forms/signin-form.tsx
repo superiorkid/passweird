@@ -17,8 +17,11 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useReducer } from "react";
 
 const SignInForm = () => {
+  const [seePassword, toggleSeePassword] = useReducer((state) => !state, false);
   const router = useRouter();
   const form = useForm<TLogin>({
     resolver: zodResolver(loginSchema),
@@ -78,12 +81,26 @@ const SignInForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  disabled={isPending}
-                  type="password"
-                  placeholder="Enter your password"
-                  {...field}
-                />
+                <div className="flex items-center space-x-1.5">
+                  <Input
+                    disabled={isPending}
+                    type={seePassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    {...field}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={toggleSeePassword}
+                  >
+                    {seePassword ? (
+                      <EyeOffIcon className="h-4 w-4 text-zinc-700" />
+                    ) : (
+                      <EyeIcon className="h-4 w-4 text-zinc-700" />
+                    )}
+                  </Button>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>

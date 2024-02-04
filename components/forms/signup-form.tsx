@@ -15,12 +15,14 @@ import { Input } from "@/components/ui/input";
 import { TRegister, registerSchema } from "@/lib/validators/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useReducer, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Checkbox } from "../ui/checkbox";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 
 const SignUpForm = () => {
+  const [seePassword, toggleSeePassword] = useReducer((state) => !state, false);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
@@ -95,11 +97,26 @@ const SignUpForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
-                  placeholder="Enter your password"
-                  {...field}
-                />
+                <div className="flex items-center space-x-1.5">
+                  <Input
+                    disabled={isPending}
+                    type={seePassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    {...field}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="icon"
+                    onClick={toggleSeePassword}
+                  >
+                    {seePassword ? (
+                      <EyeOffIcon className="h-4 w-4 text-zinc-700" />
+                    ) : (
+                      <EyeIcon className="h-4 w-4 text-zinc-700" />
+                    )}
+                  </Button>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
