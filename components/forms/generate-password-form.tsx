@@ -77,16 +77,20 @@ function GeneratePasswordForm({
             <FormItem className="flex flex-col space-y-4 rounded-lg border p-3 shadow-sm">
               <FormLabel>Length - {value}</FormLabel>
               <FormControl>
-                <Slider
-                  disabled={isPending}
-                  min={6}
-                  max={50}
-                  step={1}
-                  defaultValue={[value]}
-                  onValueChange={(vals) => {
-                    onChange(vals[0]);
-                  }}
-                />
+                <div className="flex items-center space-x-3.5">
+                  <span className="text-sm">6</span>
+                  <Slider
+                    disabled={isPending}
+                    min={6}
+                    max={50}
+                    step={1}
+                    defaultValue={[value]}
+                    onValueChange={(vals) => {
+                      onChange(vals[0]);
+                    }}
+                  />
+                  <span className="text-sm">50</span>
+                </div>
               </FormControl>
               <FormDescription>
                 Adjust the length of the password by sliding the control.
