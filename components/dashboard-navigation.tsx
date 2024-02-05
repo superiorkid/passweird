@@ -20,7 +20,8 @@ const DashboardNavigation = () => {
               <AlignLeft className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left">
+
+          <SheetContent side="left" className="overflow-y-auto">
             <aside className="space-y-3.5">
               <div className="space-y-2.5">
                 <h1 className="font-bold">Passwords</h1>
