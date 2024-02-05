@@ -11,7 +11,10 @@ interface HeaderProps {
 const Header = ({ title, description, className }: HeaderProps) => {
   return (
     <header
-      className={cn("mb-5 flex items-center justify-between pr-3", className)}
+      className={cn(
+        "relative mb-5 flex items-center justify-between pr-3",
+        className,
+      )}
     >
       <div>
         <h1 className="text-2xl font-bold">{title}</h1>
