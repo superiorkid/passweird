@@ -3,7 +3,7 @@
 import { useCopyToClipboard } from "@uidotdev/usehooks";
 import { Check, Copy } from "lucide-react";
 import { Button } from "./ui/button";
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { toast } from "sonner";
 
 interface CopyToClipboardProps {
@@ -15,17 +15,18 @@ const CopyToClipboard = ({ className, text }: CopyToClipboardProps) => {
   const [copiedText, copyToClipboard] = useCopyToClipboard();
   const hasCopiedText = Boolean(copiedText);
 
-  const handleCopyClicked = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    event.preventDefault();
+  const handleCopyClicked = useCallback(() => {
     try {
       copyToClipboard(text as string);
       toast.success("Copied");
-    } catch (e) {
-      toast.error("failed to copy");
+
+      setTimeout(() => {
+        copyToClipboard("");
+      }, 2000);
+    } catch (error) {
+      toast.error("Failed to copy");
     }
-  };
+  }, [copyToClipboard, text]);
 
   return (
     <Button
