@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useDebounce } from "@uidotdev/usehooks";
 import { passwordStrength, Result } from "check-password-strength";
@@ -69,22 +69,23 @@ function AnalyzePassword() {
         />
         <CopyToClipboard text={debouncedSearchTerm} />
       </div>
-
-      <div className="space-y-2">
-        <div className="grid grid-cols-4 gap-2">
-          {Array.from({
-            length: passwordIndicator?.length as number,
-          }).map((_, index) => (
-            <div
-              key={index}
-              className={cn(`h-2 rounded-lg`, passwordIndicator?.color)}
-            />
-          ))}
+      {debouncedSearchTerm && (
+        <div className="space-y-2">
+          <div className="grid grid-cols-4 gap-2">
+            {Array.from({
+              length: passwordIndicator?.length as number,
+            }).map((_, index) => (
+              <div
+                key={index}
+                className={cn(`h-2 rounded-lg`, passwordIndicator?.color)}
+              />
+            ))}
+          </div>
+          <p className="text-right text-sm font-semibold text-zinc-500">
+            {status?.value}
+          </p>
         </div>
-        <p className="text-right text-sm font-semibold text-zinc-500">
-          {status?.value}
-        </p>
-      </div>
+      )}
     </div>
   );
 }
